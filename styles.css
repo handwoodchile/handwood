@@ -40,7 +40,7 @@ img {
 
 .hero,
 .page-header {
-  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 25%), linear-gradient(135deg, rgba(36, 26, 18, 0.96), rgba(112, 59, 18, 0.92));
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 25%), linear-gradient(135deg, rgba(18, 12, 8, 0.9), rgba(35, 23, 14, 0.98));
   color: white;
 }
 
@@ -113,12 +113,50 @@ img {
   color: #ffe5b0;
 }
 
+.hero,
+.page-intro {
+  position: relative;
+}
+
+.hero {
+  overflow: hidden;
+}
+
 .hero-content,
 .page-intro {
   padding: 5rem 0 6rem;
   opacity: 0;
   transform: translateY(18px);
   animation: fadeInUp 0.95s ease-out forwards;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 230, 190, 0.12), transparent 16%),
+              radial-gradient(circle at 80% 45%, rgba(255, 255, 255, 0.08), transparent 24%),
+              linear-gradient(180deg, rgba(35, 25, 15, 0.25), rgba(20, 15, 10, 0.15));
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 10, 6, 0.4) 0%, rgba(20, 15, 10, 0.8) 70%);
+  pointer-events: none;
+}
+
+.hero-content,
+.hero .topbar,
+.hero .hero-actions,
+.hero .eyebrow,
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content h1,
@@ -130,6 +168,27 @@ img {
   text-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
   position: relative;
   display: inline-block;
+}
+
+.hero-title-wrap {
+  position: relative;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1rem;
+  padding: 2rem 0 1.3rem;
+  min-height: 280px;
+}
+
+.hero-title-wrap::before {
+  display: none;
+}
+
+.hero-title-wrap h1 {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 780px;
 }
 
 .hero-content h1::after,
@@ -766,6 +825,7 @@ img {
   padding: 1.5rem 0 2rem;
   color: var(--muted);
   text-align: center;
+  background: #1a1209;
 }
 
 @media (max-width: 860px) {
