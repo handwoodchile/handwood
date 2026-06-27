@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Handwood | Trabajos realizados</title>
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <nav class="topbar">
+        <div class="container topbar-inner">
+          <a class="brand" href="index.html">
+            <img src="assets/logo.png" alt="Handwood logo" class="brand-logo" />
+            <span class="brand-text">HANDWOOD</span>
+          </a>
+          <div class="nav-links">
+            <a href="index.html">Inicio</a>
+            <a href="trabajos.html" class="active">Trabajos</a>
+            <a href="catalogo.html">Catálogo</a>
+            <a href="index.html#contactos">Contactos</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="container page-intro">
+        <p class="eyebrow">Trabajos realizados</p>
+        <h1>Proyectos que combinan diseño, funcionalidad y durabilidad.</h1>
+        <p>Cada intervención se adapta a las medidas, necesidades y estilo del cliente.</p>
+      </div>
+    </header>
+
+    <main class="container section">
+      <div class="card-grid">
+        <article class="project-card gallery-trigger" data-images='["trabajosrealizados/Meson Isla1.0.png","trabajosrealizados/PuertasArriba1.0.png","trabajosrealizados/PuertasCocina.png"]' data-slide-images='["trabajosrealizados/Meson Isla1.0.png","trabajosrealizados/PuertasArriba1.0.png","trabajosrealizados/PuertasCocina.png"]'>
+          <div class="card-media media-one"></div>
+          <div class="card-content">
+            <h3>Cocina de la familia</h3>
+            <p>Solución de almacenamiento integral con isla central y acabados en roble claro.</p>
+            <span class="tag">Cocinas</span>
+            <button class="gallery-label" type="button">Ver galería</button>
+          </div>
+        </article>
+        <article class="project-card gallery-trigger" data-images='["trabajosrealizados/Velador1.jpeg","trabajosrealizados/Velador3.jpeg"]' data-slide-images='["trabajosrealizados/Velador1.jpeg","trabajosrealizados/Velador3.jpeg"]'>
+          <div class="card-media media-four"></div>
+          <div class="card-content">
+            <h3>Proyecto de velador</h3>
+            <p>Diseño de mesas de noche en madera con líneas modernas y detalles cálidos.</p>
+            <span class="tag">Descansos</span>
+            <button class="gallery-label" type="button">Ver galería</button>
+          </div>
+        </article>
+        <article class="project-card gallery-trigger" data-images='["trabajosrealizados/MuebleAgua1.png","trabajosrealizados/MuebleAgua2.png"]' data-slide-images='["trabajosrealizados/MuebleAgua1.png","trabajosrealizados/MuebleAgua2.png"]'>
+          <div class="card-media media-five"></div>
+          <div class="card-content">
+            <h3>Almacena y Resfrescate</h3>
+            <p>Muebles con estilo fresco y soluciones de almacenamiento adaptable.</p>
+            <span class="tag">Almacén</span>
+            <button class="gallery-label" type="button">Ver galería</button>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+      <div class="gallery-overlay" id="galleryOverlay"></div>
+      <div class="gallery-dialog" role="dialog" aria-modal="true" aria-labelledby="galleryTitle">
+        <button class="gallery-close" id="galleryClose" aria-label="Cerrar galería">×</button>
+        <div class="gallery-header">
+          <p class="eyebrow" id="gallerySubtitle">Proyecto</p>
+          <h2 id="galleryTitle">Galería de fotos</h2>
+          <p>Usa las flechas para navegar y haz zoom en la imagen.</p>
+        </div>
+        <div class="gallery-viewer">
+          <button class="gallery-nav gallery-prev" id="galleryPrev" aria-label="Imagen anterior">‹</button>
+          <div class="gallery-image-wrap" id="galleryImageWrap">
+            <img src="" alt="Imagen de proyecto" id="galleryImage" />
+          </div>
+          <button class="gallery-nav gallery-next" id="galleryNext" aria-label="Siguiente imagen">›</button>
+        </div>
+        <div class="gallery-thumbs" id="galleryThumbs"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <img src="assets/logo.png" alt="Handwood logo" class="footer-logo" />
+        <p>Handwood © 2026 · Muebles a medida para hogares y negocios.</p>
+      </div>
+    </footer>
+    <script>
+      const galleryModal = document.getElementById('galleryModal');
+      const galleryOverlay = document.getElementById('galleryOverlay');
+      const galleryClose = document.getElementById('galleryClose');
+      const galleryPrev = document.getElementById('galleryPrev');
+      const galleryNext = document.getElementById('galleryNext');
+      const galleryImage = document.getElementById('galleryImage');
+      const galleryImageWrap = document.getElementById('galleryImageWrap');
+      const galleryThumbs = document.getElementById('galleryThumbs');
+      const gallerySubtitle = document.getElementById('gallerySubtitle');
+      const galleryTitle = document.getElementById('galleryTitle');
+      const galleryTriggers = document.querySelectorAll('.gallery-trigger');
+
+      let activeGalleryImages = [];
+      let activeGalleryIndex = 0;
+
+      function updateGallery() {
+        if (!activeGalleryImages.length) return;
+        galleryImage.src = activeGalleryImages[activeGalleryIndex];
+        galleryThumbs.innerHTML = '';
+
+        activeGalleryImages.forEach((src, index) => {
+          const thumb = document.createElement('button');
+          thumb.type = 'button';
+          thumb.className = 'gallery-thumb' + (index === activeGalleryIndex ? ' active' : '');
+          thumb.innerHTML = `<img src="${src}" alt="Miniatura ${index + 1}" />`;
+          thumb.addEventListener('click', () => {
+            activeGalleryIndex = index;
+            updateGallery();
+          });
+          galleryThumbs.appendChild(thumb);
+        });
+      }
+
+      function openGallery(images, title, subtitle) {
+        activeGalleryImages = images;
+        activeGalleryIndex = 0;
+        galleryImage.classList.remove('zoomed');
+        gallerySubtitle.textContent = subtitle;
+        galleryTitle.textContent = title;
+        galleryImage.src = '';
+        updateGallery();
+        galleryModal.classList.add('open');
+        galleryModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeGallery() {
+        galleryModal.classList.remove('open');
+        galleryModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      galleryOverlay.addEventListener('click', closeGallery);
+      galleryClose.addEventListener('click', closeGallery);
+      galleryPrev.addEventListener('click', () => {
+        activeGalleryIndex = (activeGalleryIndex - 1 + activeGalleryImages.length) % activeGalleryImages.length;
+        galleryImage.classList.remove('zoomed');
+        updateGallery();
+      });
+      galleryNext.addEventListener('click', () => {
+        activeGalleryIndex = (activeGalleryIndex + 1) % activeGalleryImages.length;
+        galleryImage.classList.remove('zoomed');
+        updateGallery();
+      });
+
+      let isPanning = false;
+      let panStartX = 0;
+      let panStartY = 0;
+      const panOffset = { x: 0, y: 0 };
+
+      function clamp(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+      }
+
+      function updateGalleryTransform() {
+        if (galleryImage.classList.contains('zoomed')) {
+          const wrapRect = galleryImageWrap.getBoundingClientRect();
+          const imageRect = galleryImage.getBoundingClientRect();
+          const maxX = Math.max(0, (imageRect.width - wrapRect.width) / 2);
+          const maxY = Math.max(0, (imageRect.height - wrapRect.height) / 2);
+          panOffset.x = clamp(panOffset.x, -maxX, maxX);
+          panOffset.y = clamp(panOffset.y, -maxY, maxY);
+          galleryImage.style.transform = `translate(${panOffset.x}px, ${panOffset.y}px) scale(1.8)`;
+        } else {
+          galleryImage.style.transform = 'scale(1)';
+          panOffset.x = 0;
+          panOffset.y = 0;
+        }
+      }
+
+      galleryImage.addEventListener('click', () => {
+        const isZoomed = galleryImage.classList.toggle('zoomed');
+        if (!isZoomed) {
+          galleryImage.classList.remove('dragging');
+          panOffset.x = 0;
+          panOffset.y = 0;
+        }
+        updateGalleryTransform();
+      });
+
+      galleryImage.addEventListener('pointerdown', event => {
+        if (!galleryImage.classList.contains('zoomed')) return;
+        isPanning = true;
+        panStartX = event.clientX;
+        panStartY = event.clientY;
+        galleryImage.classList.add('dragging');
+        galleryImage.setPointerCapture(event.pointerId);
+        event.preventDefault();
+      });
+
+      galleryImage.addEventListener('pointermove', event => {
+        if (!isPanning) return;
+        const deltaX = event.clientX - panStartX;
+        const deltaY = event.clientY - panStartY;
+        panStartX = event.clientX;
+        panStartY = event.clientY;
+        panOffset.x += deltaX;
+        panOffset.y += deltaY;
+        updateGalleryTransform();
+      });
+
+      galleryImage.addEventListener('pointerup', event => {
+        if (!isPanning) return;
+        isPanning = false;
+        galleryImage.classList.remove('dragging');
+        galleryImage.releasePointerCapture(event.pointerId);
+      });
+
+      galleryImage.addEventListener('pointercancel', () => {
+        isPanning = false;
+        galleryImage.classList.remove('dragging');
+      });
+
+      document.addEventListener('keydown', event => {
+        if (!galleryModal.classList.contains('open')) return;
+        if (event.key === 'Escape') {
+          closeGallery();
+        }
+        if (event.key === 'ArrowLeft') {
+          activeGalleryIndex = (activeGalleryIndex - 1 + activeGalleryImages.length) % activeGalleryImages.length;
+          galleryImage.classList.remove('zoomed');
+          updateGallery();
+        }
+        if (event.key === 'ArrowRight') {
+          activeGalleryIndex = (activeGalleryIndex + 1) % activeGalleryImages.length;
+          galleryImage.classList.remove('zoomed');
+          updateGallery();
+        }
+      });
+
+      function startSlideShow(trigger) {
+        const slideImages = JSON.parse(trigger.dataset.slideImages || '[]');
+        const media = trigger.querySelector('.card-media');
+        if (!media || slideImages.length === 0) return;
+
+        media.innerHTML = '';
+        let index = 0;
+
+        let currentImage = document.createElement('img');
+        currentImage.className = 'slide-fade current-slide';
+        currentImage.alt = 'Vista previa del proyecto';
+        currentImage.src = slideImages[index];
+        media.appendChild(currentImage);
+
+        if (slideImages.length < 2) return;
+
+        function scheduleNext() {
+          const nextIndex = (index + 1) % slideImages.length;
+          const nextImage = document.createElement('img');
+          nextImage.className = 'slide-fade';
+          nextImage.alt = 'Vista previa del proyecto';
+
+          nextImage.onload = () => {
+            media.appendChild(nextImage);
+            requestAnimationFrame(() => {
+              nextImage.classList.add('current-slide');
+              currentImage.classList.remove('current-slide');
+            });
+
+            setTimeout(() => {
+              currentImage.remove();
+              currentImage = nextImage;
+              index = nextIndex;
+              setTimeout(scheduleNext, 5000);
+            }, 950);
+          };
+
+          nextImage.onerror = () => {
+            if (nextImage.parentElement) nextImage.remove();
+            setTimeout(scheduleNext, 5000);
+          };
+
+          nextImage.src = slideImages[nextIndex];
+        }
+
+        setTimeout(scheduleNext, 5000);
+      }
+
+      galleryTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          const images = JSON.parse(trigger.dataset.images);
+          const title = trigger.querySelector('h3')?.textContent || 'Proyecto';
+          const subtitle = trigger.querySelector('.tag')?.textContent || 'Proyecto';
+          openGallery(images, title, subtitle);
+        });
+        startSlideShow(trigger);
+      });
+    </script>
+  </body>
+</html>
