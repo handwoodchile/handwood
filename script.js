@@ -1,7 +1,11 @@
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
+function initMobileMenu() {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
 
-if (menuToggle && navLinks) {
+  if (!menuToggle || !navLinks) {
+    return;
+  }
+
   menuToggle.addEventListener('click', (event) => {
     event.stopPropagation();
     const isOpen = navLinks.classList.toggle('open');
@@ -26,4 +30,10 @@ if (menuToggle && navLinks) {
       menuToggle.setAttribute('aria-expanded', 'false');
     }
   });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initMobileMenu);
+} else {
+  initMobileMenu();
 }
