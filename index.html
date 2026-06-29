@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="icon" href="assets/logo.png" />
-    <link rel="stylesheet" href="styles.css?v=1.0.0" />
+    <link rel="stylesheet" href="styles.css?v=1.0.1" />
   </head>
   <body>
     <header class="hero">
@@ -22,11 +22,16 @@
             <img src="assets/logo.png" alt="Handwood logo" class="brand-logo" />
             <span class="brand-text">HANDWOOD</span>
           </a>
-          <div class="nav-links">
+          <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <div class="nav-links" id="mobileNav">
             <a href="index.html" class="active">Inicio</a>
             <a href="trabajos.html">Trabajos</a>
             <a href="catalogo.html">Catálogo</a>
-            <a href="index.html#contactos">Contactos</a>
+            <a href="index.html#contactos">Contacto</a>
           </div>
         </div>
       </nav>
@@ -116,7 +121,7 @@
 
       <section class="section container cta-panel" id="contactos">
         <div>
-          <p class="eyebrow">Contactos</p>
+          <p class="eyebrow">Contacto</p>
           <h2>Estamos listos para ayudarte a crear tu próximo mueble a medida.</h2>
         </div>
         <div class="contact-list">
@@ -135,5 +140,6 @@
         <p>Handwood © 2026 · Muebles a medida para hogares y negocios.</p>
       </div>
     </footer>
+    <script src="script.js"></script>
   </body>
 </html>

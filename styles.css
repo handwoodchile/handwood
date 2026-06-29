@@ -113,6 +113,42 @@ img {
   color: #ffe5b0;
 }
 
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.25rem;
+  padding: 0.45rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 1.35rem;
+  height: 2px;
+  border-radius: 999px;
+  background: #fff8ef;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+
+.menu-toggle.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
 .hero,
 .page-intro {
   position: relative;
@@ -842,14 +878,53 @@ img {
 }
 
 @media (max-width: 640px) {
-  .nav {
-    flex-direction: column;
-    gap: 0.8rem;
+  .topbar-inner {
+    position: relative;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
   }
 
   .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+    position: absolute;
+    top: calc(100% + 0.7rem);
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, rgba(23, 16, 10, 0.99), rgba(48, 30, 18, 0.98));
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    z-index: 2000;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    padding: 0.6rem 0.4rem;
+    font-size: 1rem;
+    border-radius: 0.6rem;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: rgba(255, 229, 176, 0.16);
+    color: #ffe5b0;
   }
 
   .hero-content,
